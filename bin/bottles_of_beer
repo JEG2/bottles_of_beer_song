@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby -w
+
+require_relative "../lib/bottles_of_beer"
+
+verses = ARGV.first =~ /\A\d+\z/ ? ARGV.shift.to_i : 99
+BottlesOfBeer::Song.new(verses).sing($stdout)
