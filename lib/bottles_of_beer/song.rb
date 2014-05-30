@@ -6,19 +6,29 @@ require_relative "verse_with_transition"
 module BottlesOfBeer
   class Song
     def initialize(verses = 99)
-      @verses  = Array.new(verses - 1) { |i| Verse.new(verses - i) }
-      @verses << PenultimateVerse.new
-      @verses << UltimateVerse.new(verses)
+      fail ArgumentError, "Cannot sing negative verses" if verses < 0
+
+      @verses = verses
     end
 
     attr_reader :verses
     private     :verses
 
     def sing(target = $stdout)
-      verses.each_cons(2) do |verse, next_verse|
-        target << VerseWithTransition.new(verse, next_verse) << "\n"
+      verses.downto(2).each_cons(2) do |bottles, next_bottles|
+        write_verse(target, Verse.new(bottles), Verse.new(next_bottles))
       end
-      target << VerseWithTransition.new(verses.last, verses.first)
+      write_verse(target, Verse.new(2),         PenultimateVerse.new) \
+        if verses >= 2
+      write_verse(target, PenultimateVerse.new, UltimateVerse.new) \
+        if verses >= 1
+      write_verse(target, UltimateVerse.new,    Verse.new(verses), "")
+    end
+
+    private
+
+    def write_verse(target, verse, next_verse, padding = "\n")
+      target << VerseWithTransition.new(verse, next_verse) << padding
     end
   end
 end
