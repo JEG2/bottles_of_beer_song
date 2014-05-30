@@ -1,6 +1,7 @@
 require_relative "verse"
 require_relative "penultimate_verse"
 require_relative "ultimate_verse"
+require_relative "verse_with_transition"
 
 module BottlesOfBeer
   class Song
@@ -14,9 +15,10 @@ module BottlesOfBeer
     private     :verses
 
     def sing(target = $stdout)
-      verses.each do |verse|
-        target << verse
+      verses.each_cons(2) do |verse, next_verse|
+        target << VerseWithTransition.new(verse, next_verse) << "\n"
       end
+      target << VerseWithTransition.new(verses.last, verses.first)
     end
   end
 end

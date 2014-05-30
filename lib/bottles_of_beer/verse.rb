@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 module BottlesOfBeer
   class Verse
     def initialize(bottles)
@@ -9,11 +7,14 @@ module BottlesOfBeer
     attr_reader :bottles
     private     :bottles
 
+    def opening
+      "#{count_with_units} of beer on the wall"
+    end
+
     def to_s
-      "#{count_with_units} of beer on the wall, " +
-      "#{count_with_units.downcase} of beer.\n"   +
-      "#{action}, "                               +
-      "#{bottles - 1} bottles of beer on the wall…\n\n"
+      "#{opening}, "                            +
+      "#{count_with_units.downcase} of beer.\n" +
+      action
     end
 
     private
