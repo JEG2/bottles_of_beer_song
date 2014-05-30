@@ -10,10 +10,20 @@ module BottlesOfBeer
     private     :bottles
 
     def to_s
-      "#{bottles} bottles of beer on the wall, " +
-      "#{bottles} bottles of beer.\n"            +
-      "Take one down and pass it around, "       +
+      "#{count_with_units} of beer on the wall, " +
+      "#{count_with_units.downcase} of beer.\n"   +
+      "#{action}, "                               +
       "#{bottles - 1} bottles of beer on the wall…\n\n"
+    end
+
+    private
+
+    def count_with_units
+      "#{bottles} bottles"
+    end
+
+    def action
+      "Take one down and pass it around"
     end
   end
 end

@@ -6,8 +6,8 @@ module BottlesOfBeer
       super(1)
     end
 
-    def to_s
-      super.gsub("1 bottles", "1 bottle")
+    def count_with_units
+      "1 bottle"
     end
   end
 end
