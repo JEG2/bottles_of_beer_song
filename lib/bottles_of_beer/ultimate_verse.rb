@@ -2,10 +2,6 @@ require_relative "verse"
 
 module BottlesOfBeer
   class UltimateVerse < Verse
-    def to_s
-      super.strip + "\n"
-    end
-
     private
 
     def count_with_units
